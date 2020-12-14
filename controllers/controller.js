@@ -16,9 +16,12 @@ exports.signin = (req, res) => {
         if (!passwordIsValid) {
             return res.status(401).send({ auth: false, accessToken: null, reason: "Invalid Password!"});
         }
-        var token = jwt.sign({ id: user.id, name: user.name, email: user.email }, config.secret, {
+        var token = jwt.sign({ 
+            id: user.id, 
+            name: user.name, 
+            email: user.email }, config.secret, {
             expiresIn: 86400 // expires in 24 hours
-        });
+            });
         res.status(200).send({ auth: true, accessToken: token });
     }).catch( err => {
         res.status(500).send('Error -> ' + err);
